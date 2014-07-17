@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+    {% if metrics|length > 0 %}
+        <table class="table">
+            <thead>
+                <th>
+                    <a href="{{ path('add') }}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </th>
+                <th>Url</th>
+                <th>Date</th>
+                <th>Response time</th>
+            </thead>
+            <tbody>
+                {% for metric in metrics %}
+                    <tr>
+                        <td>{{ metric.id }}</td>
+                        <td>
+                            <a href="{{ metric.url }}" target="_blank">
+                                {{ metric.url }}
+                            </a>
+                        </td>
+                        <td>{{ metric.date|date('d/m/Y H:i:s') }}</td>
+                        <td>{{ metric.responseTime }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h3>No records available...</h3>
+        <a href="{{ path('add') }}" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-plus"></span> Add record
+        </a>
+    {% endif %}
+{% endblock %}
